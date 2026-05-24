@@ -1,0 +1,6 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>{{ videojuego.nombre }}</h1>
+<p>{{ videojuego.descripcion }}</p>
+<p>Nota prensa: {{ videojuego.nota_prensa }} | Nota comunidad: {{ videojuego.nota_comunidad }}</p>
+{% endblock %}
