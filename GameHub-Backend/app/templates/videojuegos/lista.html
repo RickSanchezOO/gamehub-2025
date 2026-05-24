@@ -1,0 +1,7 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Videojuegos</h1>
+{% for v in videojuegos.items %}
+    <p><a href="/videojuegos/{{ v.id }}">{{ v.nombre }}</a></p>
+{% endfor %}
+{% endblock %}
