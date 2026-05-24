@@ -391,9 +391,38 @@ function initAuthForms() {
   });
 }
 
-function boot(activePage) {
+async function boot(activePage) {
   document.documentElement.lang = appState.lang;
   mountShell(activePage);
+
+  // Noticias
+  const newsFromAPI = await window.GAMEHUB_API.loadNews();
+  if (newsFromAPI) window.GAMEHUB_DATA.homeNews = newsFromAPI;
+
+  // Videojuegos
+  const gamesFromAPI = await window.GAMEHUB_API.loadGames();
+  if (gamesFromAPI) window.GAMEHUB_DATA.catalogGames = gamesFromAPI;
+
+  // Ranking
+  const rankingFromAPI = await window.GAMEHUB_API.loadRanking();
+  if (rankingFromAPI) window.GAMEHUB_DATA.topRated = rankingFromAPI;
+
+  // Blog
+  const postsFromAPI = await window.GAMEHUB_API.loadPosts();
+  if (postsFromAPI) window.GAMEHUB_DATA.blogPosts = postsFromAPI;
+
+  // Eventos
+  const eventsFromAPI = await window.GAMEHUB_API.loadEvents();
+  if (eventsFromAPI) window.GAMEHUB_DATA.events = eventsFromAPI;
+
+  // Equipo
+  const teamFromAPI = await window.GAMEHUB_API.loadTeam();
+  if (teamFromAPI) window.GAMEHUB_DATA.team = teamFromAPI;
+
+  // Dashboard
+  const dashboardFromAPI = await window.GAMEHUB_API.loadDashboard();
+  if (dashboardFromAPI) window.GAMEHUB_DATA.dashboard = dashboardFromAPI;
+
   renderHome();
   renderCatalog();
   renderCommunity();
