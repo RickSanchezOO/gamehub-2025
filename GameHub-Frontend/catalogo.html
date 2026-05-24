@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Game-Hub | Catalogo</title>
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body onload="boot('catalogo.html')">
+  <div class="site-shell">
+    <header class="site-header" data-site-header></header>
+
+    <section class="page-hero">
+      <h1>Catalogo</h1>
+      <p>Base visual inspirada directamente en el mockup: filtros laterales, tarjetas oscuras y foco en valoracion y acceso al detalle.</p>
+    </section>
+
+    <section class="filters-layout">
+      <aside class="filter-panel">
+        <article class="card">
+          <h3>FILTROS</h3>
+          <div class="filter-group">
+            <h4>PLATAFORMAS</h4>
+            <div class="check-list">
+              <label><input type="checkbox"> PC (Steam / Epic)</label>
+              <label><input type="checkbox" checked> PlayStation 5</label>
+              <label><input type="checkbox"> Xbox Series X|S</label>
+              <label><input type="checkbox"> Nintendo Switch</label>
+            </div>
+          </div>
+          <div class="filter-group">
+            <h4>GENEROS</h4>
+            <div class="check-list">
+              <label><input type="checkbox" checked> Accion y aventura</label>
+              <label><input type="checkbox"> RPG</label>
+              <label><input type="checkbox"> Shooter</label>
+              <label><input type="checkbox"> Deportes</label>
+            </div>
+          </div>
+          <a class="community-link" href="#">Limpiar todos los filtros</a>
+        </article>
+      </aside>
+
+      <div>
+        <div class="results-toolbar">
+          <div>Mostrando 124 juegos en la base de datos</div>
+          <div>
+            <label for="sort-games" class="muted" style="margin-right:10px;">Ordenar por:</label>
+            <select id="sort-games" class="sort-select">
+              <option>Mejor valorados</option>
+              <option>Mas populares</option>
+              <option>Lanzamiento (nuevo)</option>
+            </select>
+          </div>
+        </div>
+        <div class="catalog-grid"></div>
+      </div>
+    </section>
+
+    <footer class="site-footer" data-site-footer></footer>
+  </div>
+  <script src="assets/js/data.js"></script>
+  <script src="assets/js/app.js"></script>
+</body>
+</html>
