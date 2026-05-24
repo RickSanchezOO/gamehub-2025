@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>{{ 'Editar' if item else 'Nuevo' }} vídeo</h1>
+<form method="POST">
+    <input type="text" name="titulo" placeholder="Título" value="{{ item.titulo if item else '' }}" required><br>
+    <input type="text" name="url_video" placeholder="URL del vídeo" value="{{ item.url_video if item else '' }}" required><br>
+    <select name="tipo">
+        {% for t in ['trailer','stream','gameplay','otro'] %}
+            <option value="{{ t }}" {{ 'selected' if item and item.tipo == t }}>{{ t }}</option>
+        {% endfor %}
+    </select><br>
+    <button type="submit">Guardar</button>
+</form>
+{% endblock %}

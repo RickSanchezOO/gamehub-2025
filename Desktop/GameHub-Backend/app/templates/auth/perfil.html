@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Mi perfil</h1>
+<form method="POST">
+    <input type="text" name="nombre" value="{{ current_user.nombre }}" required><br>
+    <select name="idioma">
+        <option value="es" {% if current_user.idioma == 'es' %}selected{% endif %}>Español</option>
+        <option value="en" {% if current_user.idioma == 'en' %}selected{% endif %}>English</option>
+    </select><br>
+    <input type="password" name="password_nuevo" placeholder="Nueva contraseña (opcional)"><br>
+    <input type="password" name="confirmar" placeholder="Confirmar nueva contraseña"><br>
+    <button type="submit">Guardar cambios</button>
+</form>
+{% endblock %}
