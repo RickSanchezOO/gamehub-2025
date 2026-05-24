@@ -1,7 +1,0 @@
-{% extends 'base.html' %}
-{% block content %}
-<h1>Multimedia</h1>
-{% for m in multimedia.items %}
-    <p><a href="/multimedia/{{ m.id }}">{{ m.titulo }}</a> ({{ m.tipo }})</p>
-{% endfor %}
-{% endblock %}

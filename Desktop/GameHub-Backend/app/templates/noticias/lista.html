@@ -1,7 +1,0 @@
-{% extends 'base.html' %}
-{% block content %}
-<h1>Noticias</h1>
-{% for n in noticias.items %}
-    <p><a href="/noticias/{{ n.id }}">{{ n.titulo }}</a></p>
-{% endfor %}
-{% endblock %}

@@ -1,7 +1,0 @@
-{% extends 'base.html' %}
-{% block content %}
-<h1>Hola, {{ current_user.nombre }}</h1>
-<p>Rol: {{ current_user.rol }}</p>
-<p>Email: {{ current_user.email }}</p>
-<p>Miembro desde: {{ current_user.fecha_registro.strftime('%d/%m/%Y') }}</p>
-{% endblock %}

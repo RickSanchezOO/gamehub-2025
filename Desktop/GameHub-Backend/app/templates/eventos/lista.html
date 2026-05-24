@@ -1,7 +1,0 @@
-{% extends 'base.html' %}
-{% block content %}
-<h1>Eventos</h1>
-{% for e in eventos.items %}
-    <p><a href="/eventos/{{ e.id }}">{{ e.nombre }}</a> — {{ e.fecha_evento }}</p>
-{% endfor %}
-{% endblock %}
