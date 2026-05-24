@@ -28,6 +28,7 @@ def create_app():
     from app.routes.eventos import eventos
     from app.routes.contacto import contacto
     from app.routes.admin import admin
+    from app.routes.api import api
 
     app.register_blueprint(auth)
     app.register_blueprint(main)
@@ -38,5 +39,6 @@ def create_app():
     app.register_blueprint(eventos)
     app.register_blueprint(contacto)
     app.register_blueprint(admin)
+    app.register_blueprint(api)
 
     return app
