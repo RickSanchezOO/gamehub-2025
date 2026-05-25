@@ -1,4 +1,5 @@
 from flask import Flask
+from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 from flask_bcrypt import Bcrypt
@@ -13,6 +14,7 @@ def create_app():
     app.config.from_object(Config)
 
     db.init_app(app)
+    CORS(app)
     login_manager.init_app(app)
     bcrypt.init_app(app)
 
