@@ -164,7 +164,7 @@ function renderCommunity() {
   if (!target) return;
   target.innerHTML = window.GAMEHUB_DATA.communityRanking.map((game) => `
     <article class="community-row link-card">
-      <div class="community-score">${game.score}</div>
+      <div class="community-score">${game.position}</div>
       <div>
         <div class="muted" style="text-align:center; font-weight:800; margin-bottom:10px;">${game.position}</div>
         <div class="community-cover"><img src="${game.image}" alt="${game.title}"></div>
