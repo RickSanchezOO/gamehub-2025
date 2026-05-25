@@ -37,7 +37,7 @@ window.GAMEHUB_DATA = {
       platform: "PC / Switch",
       score: "9.2",
       description: "Exploracion de precision, jefes exigentes y una identidad artistica muy marcada.",
-      image: "assets/images/hardware-news.png",
+      image: "assets/images/silksong.png",
       href: "juego.html"
     },
     {
@@ -73,13 +73,13 @@ window.GAMEHUB_DATA = {
       platform: "Switch",
       score: "9.5",
       description: "Sistema fisico, exploracion vertical y creatividad constante sobre una base sobresaliente.",
-      image: "assets/images/hero-cyber-frontier.png",
+      image: "assets/images/TOTK.png",
       href: "juego.html"
     }
   ],
   communityRanking: [
     {
-      score: "98",
+      score: "1",
       position: "1",
       title: "Elden Ring",
       platform: "PC / PS5 / XSX",
@@ -88,7 +88,7 @@ window.GAMEHUB_DATA = {
       href: "juego.html"
     },
     {
-      score: "96",
+      score: "2",
       position: "2",
       title: "Red Dead Redemption 2",
       platform: "PC / PS4 / XONE",
@@ -97,7 +97,7 @@ window.GAMEHUB_DATA = {
       href: "juego.html"
     },
     {
-      score: "95",
+      score: "3",
       position: "3",
       title: "Baldur's Gate 3",
       platform: "PC / PS5 / XSX",
