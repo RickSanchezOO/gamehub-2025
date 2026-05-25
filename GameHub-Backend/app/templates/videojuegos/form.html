@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>{{ 'Editar' if videojuego else 'Nuevo' }} videojuego</h1>
+<form method="POST">
+    <input type="text" name="nombre" placeholder="Nombre" value="{{ videojuego.nombre if videojuego else '' }}" required><br>
+    <textarea name="descripcion">{{ videojuego.descripcion if videojuego else '' }}</textarea><br>
+    <input type="text" name="imagen" placeholder="URL imagen" value="{{ videojuego.imagen if videojuego else '' }}"><br>
+    <input type="number" step="0.01" name="nota_prensa" placeholder="Nota prensa" value="{{ videojuego.nota_prensa if videojuego else '' }}"><br>
+    <input type="number" step="0.01" name="nota_comunidad" placeholder="Nota comunidad" value="{{ videojuego.nota_comunidad if videojuego else '' }}"><br>
+    <input type="number" name="anio_lanzamiento" placeholder="Año" value="{{ videojuego.anio_lanzamiento if videojuego else '' }}"><br>
+    <input type="text" name="genero" placeholder="Género" value="{{ videojuego.genero if videojuego else '' }}"><br>
+    <button type="submit">Guardar</button>
+</form>
+{% endblock %}

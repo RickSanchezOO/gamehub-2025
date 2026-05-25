@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Game-Hub | Contacto</title>
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body onload="boot('contacto.html')">
+  <div class="site-shell">
+    <header class="site-header" data-site-header></header>
+    <section class="page-hero">
+      <h1>Contacto</h1>
+      <p>Canal de comunicacion entre usuarios y equipo editorial para dudas, sugerencias y propuestas.</p>
+    </section>
+    <section class="section-block">
+      <form id="contact-form" class="card form-grid">
+        <label>Nombre
+          <input type="text" name="name" required>
+        </label>
+        <label>Email
+          <input type="email" name="email" required>
+        </label>
+        <label>Asunto
+          <input type="text" name="subject" required>
+        </label>
+        <label>Mensaje
+          <textarea name="message" required></textarea>
+        </label>
+        <button class="primary-btn" type="submit">Enviar mensaje</button>
+        <p class="form-notice"></p>
+      </form>
+    </section>
+    <footer class="site-footer" data-site-footer></footer>
+  </div>
+  <script src="assets/js/data.js"></script>
+  <script src="assets/js/api.js"></script>
+  <script src="assets/js/app.js"></script>
+</body>
+</html>

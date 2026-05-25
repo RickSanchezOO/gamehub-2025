@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Game-Hub | Iniciar sesion</title>
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body onload="boot('auth.html')">
+  <div class="site-shell">
+    <header class="site-header" data-site-header></header>
+
+    <section class="auth-screen">
+      <article class="auth-card">
+        <div class="auth-logo">GAME-<span>HUB</span></div>
+        <p class="auth-subtitle">Bienvenido de nuevo</p>
+
+        <form class="form-grid mock-form">
+          <label>
+            CORREO ELECTRONICO
+            <input type="email" value="jugador@ejemplo.com" required>
+          </label>
+          <label>
+            CONTRASENA
+            <input type="password" value="mypassword123" required>
+          </label>
+
+          <div class="form-row">
+            <label style="display:flex; gap:10px; align-items:center; text-transform:none; letter-spacing:0; font-size:0.9rem;">
+              <input type="checkbox">
+              Recordarme
+            </label>
+            <a class="community-link" href="#">¿Olvidaste tu contrasena?</a>
+          </div>
+
+          <button class="primary-btn" type="submit" style="border-radius:8px;">Iniciar sesion</button>
+          <p class="form-feedback muted"></p>
+        </form>
+
+        <div class="auth-divider">O continua con</div>
+
+        <div class="social-grid">
+          <div class="social-btn">🎮 PSN</div>
+          <div class="social-btn">🟢 Xbox</div>
+        </div>
+
+        <div class="auth-footnote">
+          ¿No tienes una cuenta?
+          <a class="accent-link" href="#">Registrate</a>
+        </div>
+      </article>
+    </section>
+
+    <footer class="site-footer" data-site-footer></footer>
+  </div>
+  <script src="assets/js/data.js"></script>
+  <script src="assets/js/api.js"></script>
+  <script src="assets/js/app.js"></script>
+</body>
+</html>
