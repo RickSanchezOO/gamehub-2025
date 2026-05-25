@@ -8,6 +8,7 @@ auth = Blueprint('auth', __name__)
 
 @auth.route('/registro', methods=['GET', 'POST'])
 def registro():
+    """Registro de nuevos usuarios. Valida campos y encripta la contraseña."""
     if current_user.is_authenticated:
         return redirect(url_for('main.index'))
     if request.method == 'POST':
@@ -24,6 +25,7 @@ def registro():
         if Usuario.query.filter_by(email=email).first():
             flash('Ya existe una cuenta con ese email.', 'danger')
             return render_template('auth/registro.html')
+        # Encriptamos la contraseña antes de guardarla
         password_hash = bcrypt.generate_password_hash(password).decode('utf-8')
         usuario = Usuario(nombre=nombre, email=email, password_hash=password_hash)
         db.session.add(usuario)
@@ -34,12 +36,14 @@ def registro():
 
 @auth.route('/login', methods=['GET', 'POST'])
 def login():
+    """Inicio de sesión. Verifica credenciales y estado de la cuenta."""
     if current_user.is_authenticated:
         return redirect(url_for('main.index'))
     if request.method == 'POST':
         email = request.form.get('email', '').strip()
         password = request.form.get('password', '')
         usuario = Usuario.query.filter_by(email=email).first()
+        # Verificamos email, contraseña y que la cuenta esté activa
         if not usuario or not bcrypt.check_password_hash(usuario.password_hash, password):
             flash('Email o contraseña incorrectos.', 'danger')
             return render_template('auth/login.html')
@@ -55,6 +59,7 @@ def login():
 @auth.route('/logout')
 @login_required
 def logout():
+    """Cierre de sesión del usuario autenticado."""
     logout_user()
     flash('Has cerrado sesión correctamente.', 'info')
     return redirect(url_for('main.index'))
@@ -62,6 +67,7 @@ def logout():
 @auth.route('/perfil', methods=['GET', 'POST'])
 @login_required
 def perfil():
+    """Edición del perfil del usuario: nombre, idioma y contraseña."""
     if request.method == 'POST':
         nombre = request.form.get('nombre', '').strip()
         idioma = request.form.get('idioma', 'es')

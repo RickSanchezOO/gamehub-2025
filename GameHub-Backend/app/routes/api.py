@@ -4,12 +4,14 @@ from app import db, bcrypt
 from app.models import Usuario, Noticia, PostBlog, Comentario, Videojuego, Multimedia, Evento, Contacto
 from datetime import datetime
 
+# Blueprint de la API REST — todas las rutas tienen el prefijo /api
 api = Blueprint('api', __name__, url_prefix='/api')
 
 # ── AUTH ──────────────────────────────────────────────────────────────────────
 
 @api.route('/auth/register', methods=['POST'])
 def register():
+    """Registro de usuario vía API. Recibe JSON con displayName, email y password."""
     data = request.get_json()
     if not data:
         return jsonify({'error': 'Datos no recibidos'}), 400
@@ -20,6 +22,7 @@ def register():
         return jsonify({'error': 'Todos los campos son obligatorios'}), 400
     if Usuario.query.filter_by(email=email).first():
         return jsonify({'error': 'Ya existe una cuenta con ese email'}), 409
+    # Encriptamos la contraseña antes de guardarla
     password_hash = bcrypt.generate_password_hash(password).decode('utf-8')
     usuario = Usuario(nombre=nombre, email=email, password_hash=password_hash)
     db.session.add(usuario)
@@ -35,12 +38,14 @@ def register():
 
 @api.route('/auth/login', methods=['POST'])
 def login():
+    """Login vía API. Devuelve datos del usuario si las credenciales son correctas."""
     data = request.get_json()
     if not data:
         return jsonify({'error': 'Datos no recibidos'}), 400
     email = data.get('email', '').strip()
     password = data.get('password', '')
     usuario = Usuario.query.filter_by(email=email).first()
+    # Verificamos credenciales y estado de la cuenta
     if not usuario or not bcrypt.check_password_hash(usuario.password_hash, password):
         return jsonify({'error': 'Email o contraseña incorrectos'}), 401
     if not usuario.activo:
@@ -60,6 +65,7 @@ def login():
 @api.route('/auth/logout', methods=['POST'])
 @login_required
 def logout():
+    """Cierre de sesión vía API."""
     logout_user()
     return jsonify({'message': 'Sesión cerrada'}), 200
 
@@ -67,6 +73,7 @@ def logout():
 
 @api.route('/news', methods=['GET'])
 def get_news():
+    """Devuelve todas las noticias publicadas ordenadas por fecha descendente."""
     noticias = Noticia.query.filter_by(estado='publicada').order_by(Noticia.fecha_publicacion.desc()).all()
     return jsonify([{
         'id': n.id,
@@ -81,6 +88,7 @@ def get_news():
 
 @api.route('/news/<int:id>', methods=['GET'])
 def get_noticia(id):
+    """Devuelve el detalle completo de una noticia por su ID."""
     n = Noticia.query.get_or_404(id)
     return jsonify({
         'id': n.id,
@@ -97,6 +105,7 @@ def get_noticia(id):
 
 @api.route('/games', methods=['GET'])
 def get_games():
+    """Devuelve todos los videojuegos ordenados por nota de comunidad descendente."""
     juegos = Videojuego.query.order_by(Videojuego.nota_comunidad.desc()).all()
     return jsonify([{
         'id': j.id,
@@ -111,6 +120,7 @@ def get_games():
 
 @api.route('/games/<int:id>', methods=['GET'])
 def get_game(id):
+    """Devuelve el detalle de un videojuego por su ID."""
     j = Videojuego.query.get_or_404(id)
     return jsonify({
         'id': j.id,
@@ -125,6 +135,7 @@ def get_game(id):
 
 @api.route('/games/ranking', methods=['GET'])
 def get_ranking():
+    """Devuelve el top 10 de videojuegos por nota de comunidad."""
     juegos = Videojuego.query.order_by(Videojuego.nota_comunidad.desc()).limit(10).all()
     return jsonify([{
         'id': j.id,
@@ -138,6 +149,7 @@ def get_ranking():
 
 @api.route('/posts', methods=['GET'])
 def get_posts():
+    """Devuelve todos los posts del blog ordenados por fecha descendente."""
     posts = PostBlog.query.order_by(PostBlog.fecha_publicacion.desc()).all()
     return jsonify([{
         'id': p.id,
@@ -151,6 +163,7 @@ def get_posts():
 
 @api.route('/posts/<int:id>', methods=['GET'])
 def get_post(id):
+    """Devuelve el detalle completo de un post por su ID."""
     p = PostBlog.query.get_or_404(id)
     return jsonify({
         'id': p.id,
@@ -164,6 +177,7 @@ def get_post(id):
 
 @api.route('/posts/<int:id>/comments', methods=['GET'])
 def get_comments(id):
+    """Devuelve los comentarios no eliminados de un post."""
     PostBlog.query.get_or_404(id)
     comentarios = Comentario.query.filter_by(post_id=id, eliminado=False).order_by(Comentario.fecha_creacion.desc()).all()
     return jsonify([{
@@ -176,6 +190,7 @@ def get_comments(id):
 @api.route('/posts/<int:id>/comments', methods=['POST'])
 @login_required
 def post_comment(id):
+    """Publica un comentario en un post. Requiere sesión iniciada."""
     PostBlog.query.get_or_404(id)
     data = request.get_json()
     contenido = data.get('body', '').strip()
@@ -195,6 +210,7 @@ def post_comment(id):
 
 @api.route('/media', methods=['GET'])
 def get_media():
+    """Devuelve todos los contenidos multimedia ordenados por fecha descendente."""
     items = Multimedia.query.order_by(Multimedia.fecha_alta.desc()).all()
     return jsonify([{
         'id': m.id,
@@ -208,6 +224,7 @@ def get_media():
 
 @api.route('/events', methods=['GET'])
 def get_events():
+    """Devuelve todos los eventos ordenados por fecha ascendente (próximos primero)."""
     eventos = Evento.query.order_by(Evento.fecha_evento.asc()).all()
     return jsonify([{
         'id': e.id,
@@ -221,6 +238,7 @@ def get_events():
 
 @api.route('/contact', methods=['POST'])
 def contact():
+    """Recibe un mensaje de contacto y lo guarda en la base de datos."""
     data = request.get_json()
     if not data:
         return jsonify({'error': 'Datos no recibidos'}), 400
@@ -242,6 +260,7 @@ def contact():
 @api.route('/dashboard', methods=['GET'])
 @login_required
 def dashboard():
+    """Devuelve estadísticas del usuario autenticado para el panel personal."""
     comentarios = Comentario.query.filter_by(usuario_id=current_user.id, eliminado=False).count()
     return jsonify({
         'welcome': f'Bienvenido de nuevo, {current_user.nombre}.',
@@ -260,6 +279,7 @@ def dashboard():
 
 @api.route('/team', methods=['GET'])
 def get_team():
+    """Devuelve los usuarios con rol editorial (Administrador, Redactor, Colaborador)."""
     redactores = Usuario.query.filter(
         Usuario.rol.in_(['Administrador', 'Redactor', 'Colaborador']),
         Usuario.activo == True

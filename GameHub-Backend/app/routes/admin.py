@@ -6,12 +6,14 @@ from app.models import Usuario, Noticia, PostBlog, Videojuego, Multimedia, Event
 admin = Blueprint('admin', __name__, url_prefix='/admin')
 
 def solo_admin():
+    """Comprueba que el usuario autenticado sea Administrador. Aborta con 403 si no."""
     if not current_user.is_authenticated or current_user.rol != 'Administrador':
         abort(403)
 
 @admin.route('/')
 @login_required
 def panel():
+    """Panel principal de administración con estadísticas generales del sistema."""
     solo_admin()
     total_usuarios = Usuario.query.count()
     total_noticias = Noticia.query.count()
@@ -31,6 +33,7 @@ def panel():
 @admin.route('/usuarios')
 @login_required
 def usuarios():
+    """Lista paginada de todos los usuarios del sistema."""
     solo_admin()
     page = request.args.get('page', 1, type=int)
     lista = Usuario.query.order_by(Usuario.fecha_registro.desc()).paginate(page=page, per_page=20)
@@ -39,6 +42,7 @@ def usuarios():
 @admin.route('/usuarios/<int:id>/rol', methods=['POST'])
 @login_required
 def cambiar_rol(id):
+    """Cambia el rol de un usuario. Solo acepta roles válidos del sistema."""
     solo_admin()
     usuario = Usuario.query.get_or_404(id)
     nuevo_rol = request.form.get('rol')
@@ -53,11 +57,13 @@ def cambiar_rol(id):
 @admin.route('/usuarios/<int:id>/suspender', methods=['POST'])
 @login_required
 def suspender_usuario(id):
+    """Activa o suspende un usuario. El administrador no puede suspenderse a sí mismo."""
     solo_admin()
     usuario = Usuario.query.get_or_404(id)
     if usuario.id == current_user.id:
         flash('No puedes suspenderte a ti mismo.', 'danger')
         return redirect(url_for('admin.usuarios'))
+    # Alternamos el estado activo/suspendido
     usuario.activo = not usuario.activo
     db.session.commit()
     estado = 'activado' if usuario.activo else 'suspendido'
@@ -67,6 +73,7 @@ def suspender_usuario(id):
 @admin.route('/usuarios/<int:id>/eliminar', methods=['POST'])
 @login_required
 def eliminar_usuario(id):
+    """Elimina un usuario de forma permanente. El administrador no puede eliminarse a sí mismo."""
     solo_admin()
     usuario = Usuario.query.get_or_404(id)
     if usuario.id == current_user.id:
