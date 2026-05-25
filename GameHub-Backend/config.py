@@ -6,7 +6,6 @@ load_dotenv()
 
 class Config:
     # Clave secreta para firmar sesiones y tokens CSRF
-<<<<<<< HEAD
     # - Durante pruebas y desarrollo se proporciona un valor por defecto
     #   para evitar fallos cuando no exista un .env con SECRET_KEY.
     # - En producción, define `SECRET_KEY` en el entorno o en .env.
@@ -37,16 +36,4 @@ class Config:
 
     # Desactiva el sistema de seguimiento de modificaciones de SQLAlchemy
     # para mejorar el rendimiento y evitar warnings innecesarios.
-=======
-    SECRET_KEY = os.getenv('SECRET_KEY', 'clave_por_defecto')
-    
-    # URI de conexión a la base de datos MySQL usando PyMySQL como conector
-    SQLALCHEMY_DATABASE_URI = (
-        f"mysql+pymysql://{os.getenv('DB_USER')}:{os.getenv('DB_PASSWORD')}"
-        f"@{os.getenv('DB_HOST')}:{os.getenv('DB_PORT')}/{os.getenv('DB_NAME')}"
-    )
-    
-    # Desactiva el sistema de seguimiento de modificaciones de SQLAlchemy
-    # para mejorar el rendimiento
->>>>>>> 4009e77aa6432fdb9c0d10a5df5d8120e3dee9cd
     SQLALCHEMY_TRACK_MODIFICATIONS = False
