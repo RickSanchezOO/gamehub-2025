@@ -1,4 +1,4 @@
-# 🎮 GAME-HUB & SERVICES ECOSYSTEM
+# 🎮 GAME-HUB & SERVICES ECOSYSTEM ✌️😭
 
 Este repositorio contiene el código fuente completo y el entorno de pruebas automatizadas de la plataforma web **GameHub**, desarrollado para la asignatura de *Gestión de Proyectos de Ingeniería de Software (GPIS)*.
 
